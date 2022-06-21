@@ -27,7 +27,7 @@ export default function App() {
   }
 
   if(gameOver) {
-    screen = <GameOverScreen />
+    screen = <GameOverScreen userNumber={userNumber}/>
   }
 
 

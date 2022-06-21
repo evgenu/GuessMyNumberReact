@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View } from "react-native";
 import Colors from "../constants/colors";
 
-const GameOverScreen = () => {
+const GameOverScreen = ({userNumber}) => {
     return (
         <View style={styles.rootContainer}>
             <Text style={styles.gameOverText}>Game Over!</Text>
+            <Text style={styles.gameOverText}>Computer guessed {userNumber}.</Text>
         </View>
     );
 }

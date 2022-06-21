@@ -23,6 +23,7 @@ const GameScreen = ({ userNumber, onGameOver }) => {
   
   const initialGuess = generateRandomBetween(1, 100, userNumber);
   const [currentGuess, setCurrentGuess] = useState(initialGuess);
+  const [guessRounds, setGuessRounds] = useState([initialGuess]);
   
   useEffect(() => {
     if(currentGuess === userNumber) {
@@ -49,6 +50,7 @@ const GameScreen = ({ userNumber, onGameOver }) => {
 
     const newRandomNumber = generateRandomBetween(lowestNumber, highestNumber, currentGuess);
     setCurrentGuess(newRandomNumber);
+    setGuessRounds(prevGuessRounds => [newRandomNumber, ...prevGuessRounds])
 
   }
 
@@ -62,18 +64,13 @@ const GameScreen = ({ userNumber, onGameOver }) => {
           <PrimaryButton style={styles.buttonContainer} onPress={nextGuessHandler.bind(this, 'greater')}>+</PrimaryButton>
         </View>
       </View>
-      <View>
-        {/* <Flatlist 
-          data={guesses}
-          keyExtractor={item => {
-            return item.id;
-          }}
-          renderItem={itemData => {
-            return (
-              <Text>{itemData.value}</Text>
-            );
-          }}
-        /> */}
+      <View style={styles.logGuessesContainer}>
+        {guessRounds.map(guessRound => (
+          <View style={styles.logGuessesTextContainer}>
+            <Text style={styles.logGuessesText} key={guessRound}>
+              The computer chose {guessRound}
+            </Text>
+          </View>))}  
       </View>
     </View>
   );
@@ -93,5 +90,19 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flex: 1
+  },
+  logGuessesContainer: {
+    marginTop: 50,
+    alignItems: 'center',
+  },
+  logGuessesTextContainer: {
+    backgroundColor: Colors.primary1000,
+    borderRadius: 8,
+    padding: 16,
+    marginTop: 10
+  },
+  logGuessesText: {
+    color: 'white',
+    fontSize: 24,
   }
 });
